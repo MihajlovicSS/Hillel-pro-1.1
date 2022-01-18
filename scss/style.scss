@@ -1,0 +1,86 @@
+@import "_reset";
+@import "_variables";
+@import "_fonts";
+@import "_mixins";
+@import "_buttons";
+@import "_graphics";
+@import "_headings";
+*{
+	box-sizing: border-box;
+}
+body{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	line-height: 26px;
+	font-weight: 400;
+	color: black;
+	background-color: white;
+}
+.form-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.form{
+    width: 650px;
+    background-color: $bg;
+    padding: 30px;
+    &__title{
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    &__name, &__message, &__year, &__email{
+        display: block;
+        padding: 15px;
+        border: none;
+        width: 100%;
+        border-radius: 8px;
+        @include fonts(16px, 26px, 400, $text, false);
+    }
+    &__name:focus, &__message:focus, &__year:focus, &__email:focus{
+        outline: none;
+        border: 1px solid $active-regular;
+    }
+    &__name:invalid, &__message:invalid, &__year:invalid, &__email:invalid{
+        border: 1px solid #FF0000;
+    }
+    &__name{
+        margin-bottom: 15px;
+    }
+    input::placeholder, textarea::placeholder{
+        font-family: 'Montserrat', sans-serif;
+        @include fonts(16px, 26px, 400, $text, false);
+    }
+    &__message{
+        resize: none;
+        margin-bottom: 30px;
+        height: 151px;
+    }
+    &__year{
+        margin-bottom: 15px;
+    }
+    &__email{
+        margin-bottom: 30px;
+    }
+    &__answer{
+        margin-bottom: 15px;
+        color: $text;
+        text-transform: uppercase;
+    }
+    &__output{
+        margin-top: 15px;
+        color: $active-regular;
+        text-align: center;
+    }
+    &__submit{
+        width: 100%;
+    }
+    &__submit:hover{
+        background-color: $active-hover;
+    }
+    &__submit:active{
+        background-color: $active-active;
+    }
+}
+.hidden{
+    display: none;
+}

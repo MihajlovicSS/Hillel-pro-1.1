@@ -1,0 +1,65 @@
+/* Graphics
+---------------------------------------*/
+@mixin dot{
+    @include pseudo;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: white;
+}
+@mixin gradient-text-reversed{
+    background: $gradient-text-and-icon-reversed;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+@mixin gradient-text{
+    background: $gradient-text-and-icon;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+@mixin arrow-small{
+    @include pseudo;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid $active-regular;
+    border-bottom: 2px solid $active-regular;
+    transform: rotate(-45deg);
+}
+@mixin arrow-small-hover{
+    border-color: $accent;
+}
+@mixin circle{
+    @include pseudo;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: $bg-alt;
+}
+@mixin shaked{
+	animation-name: shaked-animation;
+	animation-duration: 0.2s;
+	animation-timing-function: ease-in-out;
+}
+@keyframes shaked-animation{
+    10%{
+        transform: translateY(8px);
+    }
+    25%{
+        transform: translateY(-8px);
+    }
+    40%{
+        transform: translateY(5px);
+    }
+    55%{
+        transform: translateY(-5px);
+    }
+    70%{
+        transform:translateY(3px)
+    }
+    85%{
+        transform:translateY(-3px)
+    }
+    100%{
+        transform:translateY(0px)
+    }
+}

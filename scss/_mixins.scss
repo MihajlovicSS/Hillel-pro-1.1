@@ -1,0 +1,165 @@
+/* User Mixins 
+---------------------------------------*/
+@mixin main-paddings($top, $lr, $bottom){
+    padding: $top $lr $bottom;
+}
+.clearfix::after {/*not a mixin*/
+  content: "";
+  clear: both;
+  display: table;
+}
+@mixin pseudo{
+  display: block;
+  position: absolute;
+  content: '';
+}
+/*
+text-align: center; выравнивание все inline-элементов
+vertical-align: center; выравнивание inline элементов внутри строки, 
+должно быть несколько inline-элементов.
+*/
+/*width is known*/
+@mixin center-block(){                                    
+    margin: 0 auto;
+}
+@mixin center-abs-pos-hor($width){                         /*width is set*/
+  width: $width;                             
+  position: absolute;
+  margin: auto;
+  left: 0; right: 0;
+}
+@mixin center-abs-pos-ver($height){                         /*height is set*/
+  height: $height;                           
+  position: absolute;
+  margin: auto;
+  left: 0; right: 0;
+}
+@mixin center-abs-pos-ver($height){                          /*height is set*/
+  position: absolute;
+  top: 50%;
+  height: $height;
+  margin-top: -calc($height/2); 
+  /*top: calc(50% - @height/2)*/
+}
+@mixin center-abs-pos($height, $width){                    /*width and height is set*/         
+  height: $height;
+  width: $width;
+  position: absolute;
+  margin: auto;
+  left: 0; right: 0; top: 0; bottom: 0;
+}
+@mixin center-abs(){                                       /*width and height are unknown*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@mixin center-abs-hor(){
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+@mixin center-abs-ver(){
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+@mixin center-table(){                                /*needed width and height of mother element*/
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+@mixin center-flex(){                                 /*width and height are unknown*/
+  display: flex;                                /*container's height is needed*/
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+/*Центрирование инлайнов внутри блоков, значения задать родителю. 
+			font-size: 78px;
+			line-height: 119px;
+*/
+/*Parent's height is set by line-height
+Child is inline or inline-block, vertical-align: middle*/
+
+/*Fluid mixins*/
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
+@function Fluid($Fmin, $Fmax, $Vmin, $Vmax){
+  $Fmin: strip-unit($Fmin);
+  $Fmax: strip-unit($Fmax);
+  $Vmin: strip-unit($Vmin);
+  $Vmax: strip-unit($Vmax);
+  $k: ($Fmax - $Fmin)/($Vmax - $Vmin);
+  $b: $Fmin - $k * $Vmin;
+  $b: $b * 1px;
+  @return calc( #{$k} * 100vw + #{$b} );
+}
+@mixin fluidFontSize($Fmin, $Fmax, $Vmin, $Vmax){
+  font-size: $Fmin;  
+  @media (min-width: $Vmin){
+  font-size: Fluid($Fmin, $Fmax, $Vmin, $Vmax);
+  }
+}
+@mixin fluidMarginSide($Mmin, $Mmax, $Vmin, $Vmax, $side){
+  margin-#{$side}: $Mmin;
+  @media (min-width: $Vmin){
+    margin-#{$side}: Fluid($Mmin, $Mmax, $Vmin, $Vmax);
+  }
+}
+@mixin fluidMargin($Mmin, $Mmax, $Vmin, $Vmax){
+  margin: $Mmin;
+  @media (min-width: $Vmin){
+    margin: Fluid($Mmin, $Mmax, $Vmin, $Vmax);
+  }
+}
+@mixin fluidPaddingSide($Pmin, $Pmax, $Vmin, $Vmax, $side){
+  padding-#{$side}: $Pmin;
+  @media (min-width: $Vmin){
+    padding-#{$side}: Fluid($Pmin, $Pmax, $Vmin, $Vmax);
+  }
+}
+@mixin fluidPadding($Pmin, $Pmax, $Vmin, $Vmax){
+  padding: $Pmin;
+  @media (min-width: $Vmin){
+    padding: Fluid($Pmin, $Pmax, $Vmin, $Vmax);
+  }
+}
+@mixin fluidWidth($Wmin, $Wmax, $Vmin, $Vmax){
+  width: $Wmin;
+  @media (min-width: $Vmin){
+    width: Fluid($Wmin, $Wmax, $Vmin, $Vmax);
+  }
+}
+@mixin fluidWidthFlag($Wmin, $Wmax, $Vmin, $Vmax, $flag){
+  #{$flag}-width: $Wmin;
+  @media (min-width: $Vmin){
+    #{$flag}-width: Fluid($Wmin, $Wmax, $Vmin, $Vmax);
+  }
+}
+@mixin fluidHeight($Hmin, $Hmax, $Vmin, $Vmax){
+  height: $Hmin;
+  @media (min-width: $Vmin){
+    height: Fluid($Hmin, $Hmax, $Vmin, $Vmax);
+  }
+}
+@mixin fluidLineHeight($LHmin, $LHmax, $Vmin, $Vmax){
+  line-height: $LHmin;
+  @media (min-width: $Vmin){
+    line-height: Fluid($LHmin, $LHmax, $Vmin, $Vmax);
+  }
+}
+
+/*Other mixins*/
+@mixin fonts($size: false, $lh: false, $weight: false, $color: false, $ls: false) {
+  @if $size { font-size: $size; }
+  @if $color { color: $color; }
+  @if $weight { font-weight: $weight; }
+  @if $lh { line-height: $lh; }
+  @if $ls { letter-spacing: $ls; }
+}

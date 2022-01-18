@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.min.css">
+    <title>Homework 1.1</title>
+</head>
+<body>
+    <div class="form-wrapper">
+        <form action="https://fom.in.ua/echo" class="form">
+            <h2 class="form__title">Возрастная форма</h2>
+            <h4 class="form__answer">Введите ваше имя</h4>
+            <input type="text" name="name" class="form__name" required placeholder="Только буквы">
+            <h4 class="form__answer">Введите год вашего рождения</h4>
+            <input type="text" name="year" id="" class="form__year" placeholder="Только цифры" required>
+            <input type="submit" class="button form__submit" value="Отправить, рассчитать, дать ответ">
+            <h4 class="form__answer form__output hidden">
+                <span class="form__output-name"></span>, вам 
+                <output class="form__output-years"></output>
+                <output class="form__output-postfix"></output>
+            </h4>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
