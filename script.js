@@ -35,7 +35,20 @@ let howOld = function(thisYear, yearOfBirthday){
 
 let correctWordOfAge = function(age){
     let result = '';
-    if(age%10 == 1 && age != 11){
+    age%=100;
+    if((age>4 && age<=20)){     
+        result = 'лет!';      
+    }
+    else if(age%10 == 1){
+        result = 'год!';
+    }
+    else if(age%10==2 || age%10==3 || age%10==4){
+        result = 'года!';
+    }
+    else {
+        result = 'лет!';
+    }
+    /* if(age%10 == 1 && age != 11){
         result = 'год!';
     }
     else if((age>1 && age<5) || (age>20 && (age%10==2 || age%10==3 || age%10==4))){
@@ -43,7 +56,7 @@ let correctWordOfAge = function(age){
     }
     else{
         result = 'лет!';
-    }
+    } */
     return result;
 }
 
